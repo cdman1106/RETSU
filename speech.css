@@ -1,0 +1,77 @@
+.enter.enter--speech{
+  position:relative;
+  min-width:min(82vw,320px);
+  padding:18px 24px 19px;
+  border:3px solid #111;
+  border-radius:54% 46% 49% 51% / 52% 48% 55% 45%;
+  background:#fff;
+  color:#111;
+  font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-style:normal;
+  font-size:clamp(22px,6.7vw,32px);
+  font-weight:700;
+  letter-spacing:.03em;
+  line-height:1.2;
+  box-shadow:0 8px 0 rgba(0,0,0,.12),0 14px 28px rgba(0,0,0,.22);
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  transform:rotate(-1.5deg);
+  transition:transform .15s ease,box-shadow .15s ease;
+  overflow:visible;
+}
+
+.enter.enter--speech::before{
+  content:"";
+  position:absolute;
+  left:28px;
+  bottom:-24px;
+  width:31px;
+  height:28px;
+  background:#111;
+  clip-path:polygon(0 0,100% 0,18% 100%);
+  transform:rotate(8deg);
+  z-index:-2;
+}
+
+.enter.enter--speech::after{
+  content:"";
+  position:absolute;
+  left:31px;
+  bottom:-18px;
+  width:24px;
+  height:22px;
+  background:#fff;
+  clip-path:polygon(0 0,100% 0,18% 100%);
+  transform:rotate(8deg);
+  z-index:-1;
+}
+
+.enter.enter--speech span{
+  display:inline-block;
+  transform:rotate(.6deg);
+}
+
+.enter.enter--speech:active{
+  transform:rotate(-1deg) scale(.96);
+  box-shadow:0 4px 0 rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.18);
+}
+
+@media (min-width:768px){
+  .enter.enter--speech:hover{
+    transform:rotate(-.6deg) translateY(-2px);
+    box-shadow:0 10px 0 rgba(0,0,0,.12),0 18px 32px rgba(0,0,0,.24);
+  }
+}
+
+@media (max-width:420px){
+  .gate__copy{bottom:max(8vh,48px);gap:13px}
+  .enter.enter--speech{
+    min-width:min(84vw,300px);
+    padding:16px 20px 17px;
+    font-size:clamp(21px,7vw,28px);
+    border-width:3px;
+  }
+  .enter.enter--speech::before{left:24px;bottom:-22px;width:29px;height:26px}
+  .enter.enter--speech::after{left:27px;bottom:-17px;width:22px;height:20px}
+}
