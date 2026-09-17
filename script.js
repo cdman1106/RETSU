@@ -21,6 +21,7 @@ async function enterSite(){
   entered = true;
   enterBtn.disabled = true;
 
+  // User gesture starts the soundtrack and the video, which keeps mobile browsers happy.
   themeAudio.volume = 0.78;
   try { await themeAudio.play(); } catch (e) { console.warn('Audio play blocked:', e); }
   try { await bgVideo.play(); } catch (e) { console.warn('Video play blocked:', e); }
@@ -81,6 +82,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// Pause heavy video decoding when the tab is hidden.
 document.addEventListener('visibilitychange', () => {
   if (!entered) return;
   if (document.hidden) bgVideo.pause();

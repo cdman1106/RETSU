@@ -14,6 +14,7 @@ button{font:inherit;color:inherit}
 img,video{display:block;max-width:100%}
 ::selection{background:var(--gold);color:#080808}
 
+/* Opening */
 .gate{position:fixed;inset:0;z-index:1000;background:#050505;overflow:hidden;transition:opacity .9s ease,visibility .9s ease}
 .gate.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
 .gate__portrait{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;transform:scale(1.03);animation:gateBreath 9s ease-in-out infinite alternate}
@@ -29,6 +30,7 @@ img,video{display:block;max-width:100%}
 .enter:active{transform:scale(.97);background:rgba(202,168,109,.12)}
 .gate__hint{margin:0;font-size:8px;letter-spacing:.32em;opacity:.48}
 
+/* Collision transition */
 .transition{position:fixed;inset:0;z-index:900;background:#030303;opacity:0;visibility:hidden;pointer-events:none;overflow:hidden}
 .transition.is-active{opacity:1;visibility:visible}
 .transition__flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:20}
@@ -52,11 +54,13 @@ img,video{display:block;max-width:100%}
 .transition.is-active .transition__word{animation:word 3.2s ease both}
 @keyframes word{0%,64%{opacity:0;transform:translate(-50%,-50%) scale(.8)}73%,88%{opacity:.92;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)}}
 
+/* Video background */
 .video-layer{position:fixed;inset:0;z-index:0;background:#050505;opacity:0;transition:opacity 1.15s ease;overflow:hidden}
 .video-layer.is-visible{opacity:1}
 .video-layer__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.09) brightness(.78)}
 .video-layer__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.25) 55%,rgba(0,0,0,.62)),radial-gradient(circle at 50% 45%,transparent 0 32%,rgba(0,0,0,.32) 100%)}
 
+/* Header / drawer */
 .site-header{position:fixed;z-index:50;left:0;right:0;top:0;height:78px;padding:18px 18px max(0px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateY(-15px);pointer-events:none;transition:.8s ease}
 .site-header.is-visible{opacity:1;transform:none;pointer-events:auto}
 .brand{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.45);border-radius:50%;font-family:"Cormorant Garamond",serif;font-size:20px;background:rgba(0,0,0,.16);backdrop-filter:blur(8px)}
@@ -79,6 +83,7 @@ img,video{display:block;max-width:100%}
 .drawer a{font-family:"Cormorant Garamond",serif;font-size:clamp(34px,9vw,64px);line-height:1.05;letter-spacing:.06em;transition:.25s}.drawer a:active{color:var(--gold)}
 .drawer .drawer__ig{margin-top:22px;font-family:"Noto Sans JP",sans-serif;font-size:11px;letter-spacing:.24em;color:var(--gold)}
 
+/* Main */
 .site{position:relative;z-index:2;opacity:0;visibility:hidden;transition:opacity 1s ease}
 .site.is-visible{opacity:1;visibility:visible}
 .panel{min-height:100svh;position:relative}
