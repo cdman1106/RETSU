@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#050505" />
-  <meta name="description" content="RETSU FUJITA — dancer / creator. Dance, live, connect." />
+  <meta name="description" content="RETSU FUJITA" />
   <meta property="og:title" content="RETSU FUJITA" />
   <meta property="og:description" content="Shall we dance?" />
   <meta property="og:image" content="assets/portrait.webp" />
@@ -17,7 +17,6 @@
 <body class="locked">
   <noscript>このサイトを表示するにはJavaScriptを有効にしてください。</noscript>
 
-  <!-- Opening -->
   <section id="gate" class="gate" aria-label="Opening">
     <img class="gate__portrait" src="assets/portrait.webp" alt="RETSU FUJITA" />
     <div class="gate__shade"></div>
@@ -32,19 +31,32 @@
     </div>
   </section>
 
-  <!-- Photo collision transition -->
   <section id="transition" class="transition" aria-hidden="true">
-    <div class="transition__flash"></div>
-    <div class="shot shot--1"><img src="assets/dance1.webp" alt="" /></div>
-    <div class="shot shot--2"><img src="assets/dance2.webp" alt="" /></div>
-    <div class="shot shot--3"><img src="assets/dance3.webp" alt="" /></div>
-    <div class="shot shot--4"><img src="assets/dance4.webp" alt="" /></div>
-    <div class="shot shot--5"><img src="assets/dance5.webp" alt="" /></div>
-    <div class="shot shot--6"><img src="assets/dance6.webp" alt="" /></div>
-    <div class="transition__word" aria-hidden="true">MOVE</div>
+    <div class="transition__ambient" aria-hidden="true"></div>
+
+    <div class="image-wall image-wall--blur" aria-hidden="true">
+      <div class="image-lane image-lane--a"><div class="image-track"></div></div>
+      <div class="image-lane image-lane--b"><div class="image-track"></div></div>
+      <div class="image-lane image-lane--c"><div class="image-track"></div></div>
+    </div>
+
+    <div class="transition__focus" aria-hidden="true">
+      <div class="transition__focusInner">
+        <div class="image-wall image-wall--sharp">
+          <div class="image-lane image-lane--a"><div class="image-track"></div></div>
+          <div class="image-lane image-lane--b"><div class="image-track"></div></div>
+          <div class="image-lane image-lane--c"><div class="image-track"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="transition__caption" aria-hidden="true">
+      <span>RETSU FUJITA</span>
+      <i></i>
+      <span>MOVE WITH THE RHYTHM</span>
+    </div>
   </section>
 
-  <!-- Fixed background video -->
   <div id="videoLayer" class="video-layer" aria-hidden="true">
     <video id="bgVideo" class="video-layer__video" muted loop playsinline preload="metadata" poster="assets/dance3.webp">
       <source src="assets/dance-bg.mp4" type="video/mp4" />
@@ -83,9 +95,8 @@
   <main id="site" class="site" aria-hidden="true">
     <section id="top" class="hero panel">
       <div class="hero__content reveal">
-        <p class="kicker">DANCER / CREATOR</p>
+        <p class="kicker">RETSU FUJITA</p>
         <h1><span>RETSU</span><span>FUJITA</span></h1>
-        <p class="hero__jp">踊る。生きる。つながる。</p>
         <div class="hero__line"></div>
         <a class="scroll-cue" href="#profile">SCROLL <span>↓</span></a>
       </div>
@@ -151,7 +162,7 @@
 
     <section class="instagram panel">
       <div class="instagram__inner reveal">
-        <p class="kicker">FOLLOW THE JOURNEY</p>
+        <p class="kicker">FOLLOW</p>
         <h2>INSTAGRAM</h2>
         <a class="instagram__link" href="https://www.instagram.com/uonumacamp_retsu?stkn=d2pzdG9pdmtpeDc2" target="_blank" rel="noopener">
           <span>@uonumacamp_retsu</span><b>↗</b>
