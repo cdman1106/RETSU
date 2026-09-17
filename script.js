@@ -4,6 +4,7 @@ const enterBtn = document.getElementById('enterBtn');
 const transition = document.getElementById('transition');
 const videoLayer = document.getElementById('videoLayer');
 const bgVideo = document.getElementById('bgVideo');
+const videoSource = document.getElementById('videoSource');
 const themeAudio = document.getElementById('themeAudio');
 const site = document.getElementById('site');
 const siteHeader = document.getElementById('siteHeader');
@@ -13,28 +14,51 @@ const drawer = document.getElementById('drawer');
 
 let entered = false;
 let muted = false;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+function loadTransitionImages(){
+  document.querySelectorAll('.ribbon img[data-src]').forEach(img => {
+    if (!img.src) {
+      img.src = img.dataset.src;
+      img.decoding = 'async';
+    }
+  });
+}
+
+function loadSoundtrack(){
+  if (!themeAudio.src) themeAudio.src = themeAudio.dataset.src;
+  themeAudio.volume = 0.76;
+  themeAudio.play().catch(() => {});
+}
+
+function loadBackgroundVideo(){
+  if (!videoSource.src) {
+    videoSource.src = videoSource.dataset.src;
+    bgVideo.load();
+  }
+  bgVideo.play().catch(() => {});
+}
 
 async function enterSite(){
   if (entered) return;
   entered = true;
   enterBtn.disabled = true;
 
-  // User gesture starts the soundtrack and the video, which keeps mobile browsers happy.
-  themeAudio.volume = 0.78;
-  try { await themeAudio.play(); } catch (e) { console.warn('Audio play blocked:', e); }
-  try { await bgVideo.play(); } catch (e) { console.warn('Video play blocked:', e); }
+  loadSoundtrack();
+  loadTransitionImages();
+  loadBackgroundVideo();
 
-  gate.classList.add('is-leaving');
   transition.classList.add('is-active');
   transition.setAttribute('aria-hidden','false');
+  gate.classList.add('is-leaving');
 
-  await sleep(2350);
+  await sleep(2100);
+  transition.classList.add('is-opening');
   videoLayer.classList.add('is-visible');
+  videoLayer.setAttribute('aria-hidden','false');
 
-  await sleep(750);
-  transition.classList.remove('is-active');
+  await sleep(850);
+  transition.classList.remove('is-active','is-opening');
   transition.setAttribute('aria-hidden','true');
   site.classList.add('is-visible');
   site.setAttribute('aria-hidden','false');
@@ -44,17 +68,14 @@ async function enterSite(){
   document.querySelector('.hero .reveal')?.classList.add('is-revealed');
 }
 
-enterBtn.addEventListener('click', enterSite);
+enterBtn.addEventListener('click', enterSite, { once:true });
 
-soundBtn.addEventListener('click', async () => {
+soundBtn.addEventListener('click', () => {
   muted = !muted;
   themeAudio.muted = muted;
   soundBtn.classList.toggle('is-muted', muted);
   soundBtn.querySelector('.sound-label').textContent = muted ? 'MUTED' : 'SOUND';
-  soundBtn.setAttribute('aria-label', muted ? '音楽を再生する' : '音楽をミュートする');
-  if (!muted && themeAudio.paused) {
-    try { await themeAudio.play(); } catch (e) {}
-  }
+  if (!muted && themeAudio.paused) themeAudio.play().catch(() => {});
 });
 
 function closeDrawer(){
@@ -74,17 +95,24 @@ menuBtn.addEventListener('click', () => {
 
 drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 
-const revealObserver = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('is-revealed');
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-revealed');
+      revealObserver.unobserve(entry.target);
+    }
   });
-}, { threshold: 0.18 });
+}, { rootMargin:'0px 0px -8% 0px', threshold:0.08 });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Pause heavy video decoding when the tab is hidden.
 document.addEventListener('visibilitychange', () => {
   if (!entered) return;
-  if (document.hidden) bgVideo.pause();
-  else bgVideo.play().catch(() => {});
+  if (document.hidden) {
+    bgVideo.pause();
+    themeAudio.pause();
+  } else {
+    bgVideo.play().catch(() => {});
+    if (!muted) themeAudio.play().catch(() => {});
+  }
 });
