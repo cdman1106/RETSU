@@ -2,80 +2,66 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#050505" />
-  <meta name="description" content="RETSU FUJITA — dancer / creator. Dance, live, connect." />
+  <meta name="description" content="RETSU FUJITA" />
   <meta property="og:title" content="RETSU FUJITA" />
   <meta property="og:description" content="Shall we dance?" />
-  <meta property="og:image" content="assets/portrait.png" />
+  <meta property="og:image" content="portrait.png" />
   <title>RETSU FUJITA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="locked">
   <noscript>このサイトを表示するにはJavaScriptを有効にしてください。</noscript>
 
-  <!-- Opening -->
   <section id="gate" class="gate" aria-label="Opening">
-    <img class="gate__portrait" src="assets/portrait.png" alt="RETSU FUJITA" />
+    <img class="gate__portrait" src="portrait.png" alt="RETSU FUJITA" fetchpriority="high" decoding="async" />
     <div class="gate__shade"></div>
-    <div class="gate__grain"></div>
     <div class="gate__copy">
-      <p class="gate__eyebrow">RETSU FUJITA</p>
-      <button id="enterBtn" class="enter" type="button" aria-label="サイトに入る">
-        <span>Shall we dance?</span>
-        <i aria-hidden="true">↗</i>
+      <p class="gate__name">RETSU FUJITA</p>
+      <button id="enterBtn" class="enter" type="button">
+        <span>Shall we dance?</span><i>↗</i>
       </button>
       <p class="gate__hint">TAP TO ENTER · SOUND ON</p>
     </div>
   </section>
 
-  <!-- Photo collision transition -->
   <section id="transition" class="transition" aria-hidden="true">
-    <div class="transition__flash"></div>
-    <div class="shot shot--1"><img src="assets/dance1.jpg" alt="" /></div>
-    <div class="shot shot--2"><img src="assets/dance2.jpg" alt="" /></div>
-    <div class="shot shot--3"><img src="assets/dance3.jpg" alt="" /></div>
-    <div class="shot shot--4"><img src="assets/dance4.jpg" alt="" /></div>
-    <div class="shot shot--5"><img src="assets/dance5.jpg" alt="" /></div>
-    <div class="shot shot--6"><img src="assets/dance6.jpg" alt="" /></div>
-    <div class="transition__word" aria-hidden="true">MOVE</div>
+    <div class="ribbons" aria-hidden="true">
+      <div class="ribbon ribbon--a"><div class="ribbon__track">
+        <img data-src="dance1.jpg" alt=""><img data-src="dance4.jpg" alt=""><img data-src="dance1.jpg" alt=""><img data-src="dance4.jpg" alt="">
+      </div></div>
+      <div class="ribbon ribbon--b"><div class="ribbon__track">
+        <img data-src="dance2.jpg" alt=""><img data-src="dance5.jpg" alt=""><img data-src="dance2.jpg" alt=""><img data-src="dance5.jpg" alt="">
+      </div></div>
+      <div class="ribbon ribbon--c"><div class="ribbon__track">
+        <img data-src="dance3.jpg" alt=""><img data-src="dance6.jpg" alt=""><img data-src="dance3.jpg" alt=""><img data-src="dance6.jpg" alt="">
+      </div></div>
+    </div>
+    <div class="focus-window"></div>
+    <p class="transition__name">RETSU</p>
   </section>
 
-  <!-- Fixed background video -->
   <div id="videoLayer" class="video-layer" aria-hidden="true">
-    <video id="bgVideo" class="video-layer__video" muted loop playsinline preload="metadata" poster="assets/dance3.jpg">
-      <source src="assets/dance-bg.mp4" type="video/mp4" />
+    <video id="bgVideo" muted loop playsinline preload="none" poster="dance3.jpg">
+      <source id="videoSource" data-src="dance-bg.mp4" type="video/mp4" />
     </video>
     <div class="video-layer__veil"></div>
-    <div class="video-layer__grain"></div>
   </div>
 
-  <audio id="themeAudio" src="assets/theme.mp3" preload="auto" loop></audio>
+  <audio id="themeAudio" preload="none" loop data-src="theme.mp3"></audio>
 
   <header id="siteHeader" class="site-header" aria-hidden="true">
-    <a class="brand" href="#top" aria-label="RETSU FUJITA home">R<span>F</span></a>
+    <a class="brand" href="#top" aria-label="RETSU FUJITA home">RF</a>
     <div class="header-actions">
-      <button id="soundBtn" class="sound-btn" type="button" aria-label="音楽をミュートする">
-        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span class="sound-label">SOUND</span>
-      </button>
-      <button id="menuBtn" class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false">
-        <i></i><i></i>
-      </button>
+      <button id="soundBtn" class="sound-btn" type="button" aria-label="音楽をミュートする"><span class="eq"><i></i><i></i><i></i></span><span class="sound-label">SOUND</span></button>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false"><i></i><i></i></button>
     </div>
   </header>
 
   <aside id="drawer" class="drawer" aria-hidden="true">
     <nav>
-      <a href="#profile">PROFILE</a>
-      <a href="#gallery">GALLERY</a>
-      <a href="#movie">MOVIE</a>
-      <a href="#works">WORKS</a>
-      <a href="#schedule">SCHEDULE</a>
-      <a href="#contact">CONTACT</a>
+      <a href="#profile">PROFILE</a><a href="#gallery">GALLERY</a><a href="#movie">MOVIE</a><a href="#works">WORKS</a><a href="#schedule">SCHEDULE</a><a href="#contact">CONTACT</a>
       <a class="drawer__ig" href="https://www.instagram.com/uonumacamp_retsu?stkn=d2pzdG9pdmtpeDc2" target="_blank" rel="noopener">INSTAGRAM ↗</a>
     </nav>
   </aside>
@@ -83,89 +69,26 @@
   <main id="site" class="site" aria-hidden="true">
     <section id="top" class="hero panel">
       <div class="hero__content reveal">
-        <p class="kicker">DANCER / CREATOR</p>
+        <p class="kicker">RETSU FUJITA</p>
         <h1><span>RETSU</span><span>FUJITA</span></h1>
-        <p class="hero__jp">踊る。生きる。つながる。</p>
         <div class="hero__line"></div>
-        <a class="scroll-cue" href="#profile">SCROLL <span>↓</span></a>
+        <a class="scroll-cue" href="#profile">SCROLL ↓</a>
       </div>
     </section>
 
-    <section id="profile" class="panel section-card-wrap">
-      <article class="section-card reveal">
-        <div class="section-card__top"><span>01</span><span>PROFILE</span></div>
-        <h2>PROFILE</h2>
-        <p>COMING SOON</p>
-        <div class="placeholder-lines"><i></i><i></i><i></i></div>
-      </article>
-    </section>
+    <section id="profile" class="panel section-wrap"><article class="section-card reveal"><div class="section-card__top"><span>01</span><span>PROFILE</span></div><h2>PROFILE</h2><p>COMING SOON</p></article></section>
 
-    <section id="gallery" class="panel section-card-wrap">
-      <article class="section-card reveal">
-        <div class="section-card__top"><span>02</span><span>GALLERY</span></div>
-        <h2>GALLERY</h2>
-        <p>COMING SOON</p>
-        <div class="mini-grid" aria-hidden="true">
-          <img src="assets/dance2.jpg" alt="" />
-          <img src="assets/dance3.jpg" alt="" />
-          <img src="assets/dance5.jpg" alt="" />
-        </div>
-      </article>
-    </section>
+    <section id="gallery" class="panel section-wrap"><article class="section-card reveal"><div class="section-card__top"><span>02</span><span>GALLERY</span></div><h2>GALLERY</h2><p>COMING SOON</p><div class="mini-grid"><img src="dance2.jpg" alt="" loading="lazy" decoding="async"><img src="dance3.jpg" alt="" loading="lazy" decoding="async"><img src="dance5.jpg" alt="" loading="lazy" decoding="async"></div></article></section>
 
-    <section id="movie" class="panel section-card-wrap">
-      <article class="section-card reveal">
-        <div class="section-card__top"><span>03</span><span>MOVIE</span></div>
-        <h2>MOVIE</h2>
-        <p>COMING SOON</p>
-        <div class="placeholder-play" aria-hidden="true">▶</div>
-      </article>
-    </section>
+    <section id="movie" class="panel section-wrap"><article class="section-card reveal"><div class="section-card__top"><span>03</span><span>MOVIE</span></div><h2>MOVIE</h2><p>COMING SOON</p></article></section>
 
-    <section id="works" class="panel section-card-wrap">
-      <article class="section-card reveal">
-        <div class="section-card__top"><span>04</span><span>WORKS</span></div>
-        <h2>WORKS</h2>
-        <p>COMING SOON</p>
-        <div class="placeholder-lines"><i></i><i></i><i></i></div>
-      </article>
-    </section>
+    <section id="works" class="panel section-wrap"><article class="section-card reveal"><div class="section-card__top"><span>04</span><span>WORKS</span></div><h2>WORKS</h2><p>COMING SOON</p></article></section>
 
-    <section id="schedule" class="panel section-card-wrap">
-      <article class="section-card reveal">
-        <div class="section-card__top"><span>05</span><span>SCHEDULE</span></div>
-        <h2>SCHEDULE</h2>
-        <p>COMING SOON</p>
-        <div class="schedule-ghost" aria-hidden="true"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span></div>
-      </article>
-    </section>
+    <section id="schedule" class="panel section-wrap"><article class="section-card reveal"><div class="section-card__top"><span>05</span><span>SCHEDULE</span></div><h2>SCHEDULE</h2><p>COMING SOON</p></article></section>
 
-    <section id="contact" class="panel section-card-wrap section-card-wrap--last">
-      <article class="section-card reveal">
-        <div class="section-card__top"><span>06</span><span>CONTACT</span></div>
-        <h2>CONTACT</h2>
-        <p>COMING SOON</p>
-        <div class="contact-ghost" aria-hidden="true">YOUR MESSAGE →</div>
-      </article>
-    </section>
+    <section id="contact" class="panel section-wrap"><article class="section-card reveal"><div class="section-card__top"><span>06</span><span>CONTACT</span></div><h2>CONTACT</h2><p>COMING SOON</p></article></section>
 
-    <section class="instagram panel">
-      <div class="instagram__inner reveal">
-        <p class="kicker">FOLLOW THE JOURNEY</p>
-        <h2>INSTAGRAM</h2>
-        <a class="instagram__link" href="https://www.instagram.com/uonumacamp_retsu?stkn=d2pzdG9pdmtpeDc2" target="_blank" rel="noopener">
-          <span>@uonumacamp_retsu</span><b>↗</b>
-        </a>
-        <div class="instagram__strip" aria-hidden="true">
-          <img src="assets/dance1.jpg" alt="" />
-          <img src="assets/dance2.jpg" alt="" />
-          <img src="assets/dance3.jpg" alt="" />
-          <img src="assets/dance4.jpg" alt="" />
-          <img src="assets/dance5.jpg" alt="" />
-          <img src="assets/dance6.jpg" alt="" />
-        </div>
-      </div>
-    </section>
+    <section class="instagram panel"><div class="instagram__inner reveal"><p class="kicker">FOLLOW THE JOURNEY</p><h2>INSTAGRAM</h2><a href="https://www.instagram.com/uonumacamp_retsu?stkn=d2pzdG9pdmtpeDc2" target="_blank" rel="noopener"><span>@uonumacamp_retsu</span><b>↗</b></a></div></section>
   </main>
 
   <script src="script.js"></script>
