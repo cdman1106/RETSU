@@ -1,14 +1,9 @@
-# RETSU FUJITA
+# RETSU FUJITA — HQ package
 
-Performance-style portfolio site for RETSU FUJITA.
+This package uses the supplied media without additional lossy recompression.
+- Portrait: approved edited PNG at 1122×1402
+- Dance photos: original uploaded JPEG files
+- Background video: original uploaded MP4 (480×480 source)
+- Theme audio: original uploaded MP3 (320 kbps)
 
-## Structure
-- Opening portrait + “Shall we dance?”
-- Sound starts on user tap
-- Six-photo collision transition
-- Fixed looping dance video background
-- Placeholder sections: Profile / Gallery / Movie / Works / Schedule / Contact
-- Active Instagram link
-
-## Assets
-All media is stored under `assets/`.
+Upload the contents of this folder to the repository root.

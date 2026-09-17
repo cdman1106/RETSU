@@ -14,82 +14,54 @@ const drawer = document.getElementById('drawer');
 let entered = false;
 let muted = false;
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const imagePaths = Array.from({ length: 6 }, (_, i) => `assets/dance${i + 1}.webp`);
-const laneOrders = {
-  a: [0, 3, 1, 5, 2, 4],
-  b: [4, 1, 5, 2, 0, 3],
-  c: [2, 5, 0, 4, 3, 1]
-};
-
-function buildImageTracks(){
-  document.querySelectorAll('.image-track').forEach(track => {
-    const lane = track.closest('.image-lane');
-    const key = lane.classList.contains('image-lane--b') ? 'b' : lane.classList.contains('image-lane--c') ? 'c' : 'a';
-    const order = laneOrders[key];
-    const sequence = [...order, ...order];
-    track.style.top = '0';
-    track.innerHTML = sequence.map(index => `<img src="${imagePaths[index]}" alt="" loading="eager" decoding="async">`).join('');
-  });
-}
-
-buildImageTracks();
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function enterSite(){
   if (entered) return;
   entered = true;
   enterBtn.disabled = true;
 
+  // User gesture starts the soundtrack and the video, which keeps mobile browsers happy.
   themeAudio.volume = 0.78;
-  const audioPlay = themeAudio.play().catch(() => {});
-  const videoPlay = bgVideo.play().catch(() => {});
+  try { await themeAudio.play(); } catch (e) { console.warn('Audio play blocked:', e); }
+  try { await bgVideo.play(); } catch (e) { console.warn('Video play blocked:', e); }
 
+  gate.classList.add('is-leaving');
   transition.classList.add('is-active');
-  transition.setAttribute('aria-hidden', 'false');
+  transition.setAttribute('aria-hidden','false');
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => gate.classList.add('is-leaving'));
-  });
-
-  await sleep(2750);
-  transition.classList.add('is-opening');
-
-  await sleep(650);
+  await sleep(2350);
   videoLayer.classList.add('is-visible');
-  videoLayer.setAttribute('aria-hidden', 'false');
 
-  await sleep(850);
-  transition.classList.add('is-finished');
+  await sleep(750);
+  transition.classList.remove('is-active');
+  transition.setAttribute('aria-hidden','true');
   site.classList.add('is-visible');
-  site.setAttribute('aria-hidden', 'false');
+  site.setAttribute('aria-hidden','false');
   siteHeader.classList.add('is-visible');
-  siteHeader.setAttribute('aria-hidden', 'false');
+  siteHeader.setAttribute('aria-hidden','false');
   body.classList.remove('locked');
   document.querySelector('.hero .reveal')?.classList.add('is-revealed');
-
-  await sleep(450);
-  transition.classList.remove('is-active', 'is-opening');
-  transition.setAttribute('aria-hidden', 'true');
-
-  await Promise.allSettled([audioPlay, videoPlay]);
 }
 
 enterBtn.addEventListener('click', enterSite);
 
-soundBtn.addEventListener('click', () => {
+soundBtn.addEventListener('click', async () => {
   muted = !muted;
   themeAudio.muted = muted;
   soundBtn.classList.toggle('is-muted', muted);
   soundBtn.querySelector('.sound-label').textContent = muted ? 'MUTED' : 'SOUND';
   soundBtn.setAttribute('aria-label', muted ? '音楽を再生する' : '音楽をミュートする');
-  if (!muted && themeAudio.paused) themeAudio.play().catch(() => {});
+  if (!muted && themeAudio.paused) {
+    try { await themeAudio.play(); } catch (e) {}
+  }
 });
 
 function closeDrawer(){
   drawer.classList.remove('is-open');
-  drawer.setAttribute('aria-hidden', 'true');
+  drawer.setAttribute('aria-hidden','true');
   menuBtn.classList.remove('is-open');
-  menuBtn.setAttribute('aria-expanded', 'false');
+  menuBtn.setAttribute('aria-expanded','false');
 }
 
 menuBtn.addEventListener('click', () => {
@@ -102,7 +74,7 @@ menuBtn.addEventListener('click', () => {
 
 drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 
-const revealObserver = new IntersectionObserver(entries => {
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('is-revealed');
   });
@@ -110,6 +82,7 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// Pause heavy video decoding when the tab is hidden.
 document.addEventListener('visibilitychange', () => {
   if (!entered) return;
   if (document.hidden) bgVideo.pause();
